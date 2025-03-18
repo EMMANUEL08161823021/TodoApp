@@ -34,7 +34,7 @@
 
 ### **Installation**
 - Express for the server side
-- Mongoose for datbase connection
+- Mongoose for database connection
 - Dotenv (to hide secret phrase)
 - Bootstrap (for styling)
 - Cors
@@ -53,24 +53,24 @@
 - npm run devStart
 
 🔗 ### **API Endpoints (Backend)**
-Method	Endpoint	Description
-**GET	/todos:**	Get all todos
-**POST	/todos :**	Create a new todo
-**PATCH	/todos/:id :**	Update a todo by ID
-**DELETE	/todos/:id :**	Delete a todo by ID
+- Method	Endpoint	Description
+- **GET	/todos:**	Get all todos
+- **POST	/todos :**	Create a new todo
+- **PATCH	/todos/:id :**	Update a todo by ID
+- **DELETE	/todos/:id :**	Delete a todo by ID
 
 👨‍💻 **Contributing**
-Want to contribute? Feel free to fork this repo, create a branch, and submit a pull request!
+- Want to contribute? Feel free to fork this repo, create a branch, and submit a pull request!
 
-git checkout -b feature-new
-git commit -m "Added a new feature"
-git push origin feature-new
+- git checkout -b feature-new
+- git commit -m "Added a new feature"
+- git push origin feature-new
 
 
 ### 1️⃣ Clone the Repository
 
-git clone https://github.com/EMMANUEL08161823021/todoapp.git
-cd todoapp
+- git clone https://github.com/EMMANUEL08161823021/todoapp.git
+- cd todoapp
 
 
 
