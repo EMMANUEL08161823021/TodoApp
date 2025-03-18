@@ -2,11 +2,11 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { MdDelete } from "react-icons/md";
 import { IoAdd } from "react-icons/io5";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 
 const Dashboard = () => {
     const [name, setName] = useState("");
-    const [completed, setCompleted] = useState(Boolean)
     const [description, setDescription] = useState("");
     const [date, setDate] = useState("");
     const [time, setTime] = useState("");
@@ -36,7 +36,7 @@ const Dashboard = () => {
         // e.preventDefault();
 
         try {
-            const response = await fetch(`http://localhost:3000/todos/${id}`, {
+            const response = await fetch(`https://todoapp-2go5.onrender.com/todos/${id}`, {
                 method: 'DELETE',
 
             });
@@ -95,7 +95,7 @@ const Dashboard = () => {
             if (updatedTodo.time) updates.time = updatedTodo.time;
             if (updatedTodo.frequency) updates.frequency = updatedTodo.frequency;
     
-            const response = await fetch(`http://localhost:3000/todos/${id}`, {
+            const response = await fetch(`https://todoapp-2go5.onrender.com/todos/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(updates), // ✅ Send only updated fields
@@ -112,6 +112,12 @@ const Dashboard = () => {
             setTodoList((prev) =>
                 prev.map((todo) => (todo._id === id ? updatedData : todo))
             );
+
+            const offcanvas = document.getElementById("offcanvasTwo");
+            if (offcanvas) {
+                const bsOffcanvas = window.bootstrap.Offcanvas.getInstance(offcanvas);
+                bsOffcanvas.hide(); // Hide the offcanvas
+            }
         } catch (error) {
             console.error("Error updating todo:", error);
         }
@@ -122,16 +128,22 @@ const Dashboard = () => {
         e.preventDefault();
     
         try {
-            const response = await fetch('http://localhost:3000/todos', {
+            const response = await fetch('https://todoapp-2go5.onrender.com/todos', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ name, description, date, time, frequency, completed }),
+                body: JSON.stringify({ name, description, date, time, frequency}),
             });
     
             const data = await response.json();
             console.log(data);
+
+            const offcanvas = document.getElementById("offcanvasOne");
+            if (offcanvas) {
+                const bsOffcanvas = window.bootstrap.Offcanvas.getInstance(offcanvas);
+                bsOffcanvas.hide(); // Hide the offcanvas
+            }
             
         } catch (error) {
             console.log("Error:", error.message);
@@ -144,7 +156,7 @@ const Dashboard = () => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const response = await fetch('http://localhost:3000/todos', {
+                const response = await fetch('https://todoapp-2go5.onrender.com/todos', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -175,7 +187,7 @@ const Dashboard = () => {
 
     return (
         <div className='position-relative col-12 col-sm-9 col-lg-5 mx-auto overflow-scroll p-2 border' style={{height: '100vh'}}>
-            <h2>Welcome Back Heuro</h2>
+            <h2>Welcome Back</h2>
 
             <div className=''>
                 <h3 style={{fontSize: '15px'}}>To-Do List</h3>
@@ -187,8 +199,8 @@ const Dashboard = () => {
                         todoList.map((list, index)=> (
                             <div className='border text-dark p-2 rounded border-black d-flex align-items-center justify-content-between'>
 
-                                <div className="col-8">
-                                    <div className='d-flex align-items-center gap-2'>
+                                <div className="col-7">
+                                    <div className='d-flex align-items-center gap-1'>
                                         <div class="form-check">
                                             <input
                                                 className="form-check-input"
@@ -213,13 +225,11 @@ const Dashboard = () => {
                                     
                 
                                 </div>
-                                <div className='col-4 d-flex align-items-center gap-2'>
+                                <div className='col-4 d-flex justify-content-between align-items-center'>
                                     <div className='d-flex flex-column text-left'>
                                         <label style={{fontSize: '13px'}}>Due On</label>
-                                        <div  className='d-flex gap-2 align-items-center'>
-                                            <p style={{fontSize: '11px'}} className='mb-0'>{new Date(list.date).toLocaleDateString()}</p>                                            
-                                            <p style={{fontSize: '11px'}} className='mb-0'>{list.time}</p>
-                                        </div>
+                                        <p style={{fontSize: '11px'}} className='mb-0'>{new Date(list.date).toLocaleDateString()}</p>                                            
+                                        
                                     </div>
                                     <button onClick={()=> deleteTodo(list._id)} className='bg-transparent border border-0'><MdDelete size={25} /></button>
                                 </div>
@@ -259,8 +269,8 @@ const Dashboard = () => {
                                     </div>
                                     <div className='d-flex flex-column col-12'>
                                         <label>Task Date and Time</label>
-                                        <div className='d-flex justify-content-between align-items-center '>
-                                            <div className='col-5 d-flex  flex-column'>
+                                        <div style={{width: '100%'}} className='d-flex justify-content-between align-items-center'>
+                                            <div style={{width: '45%'}} className='d-flex flex-column'>
                                                 <label>Date</label>
                                                 <input
                                                     className='p-3 border border-dark  rounded'
@@ -272,7 +282,7 @@ const Dashboard = () => {
                                                     // placeholder='Your password'
                                                 />
                                             </div>
-                                            <div className='col-6 d-flex flex-column'>
+                                            <div style={{width: '45%'}} className='d-flex flex-column'>
                                                 <label>Time</label>
                                                 <input
                                                     className='p-3 border border-dark  rounded'
@@ -300,7 +310,7 @@ const Dashboard = () => {
                                     </div>
                                     
                     
-                            <div className='d-flex justify-content-between mt-2 align-items-center' style={{width:'100%'}}>
+                                    <div className='d-flex justify-content-between mt-2 align-items-center' style={{width:'100%'}}>
                                         <button style={{width:'45%'}} className='button col-6 p-3 border border-dark rounded-pill' data-bs-dismiss="offcanvas" type='submit'>Cancel</button>
                                         <button style={{width:'45%'}} className='button col-6 p-3 border border-dark bg-dark text-white rounded-pill' type='submit'>Save</button>
                                     </div>
@@ -360,8 +370,8 @@ const Dashboard = () => {
                                     placeholder='What it entails'
                                 />
                             </div>
-                            <div className='d-flex justify-content-between align-items-center '>
-                                <div className='col-5 col-sm-5 d-flex  flex-column'>
+                            <div style={{width: '100%'}} className='d-flex justify-content-between align-items-center'>
+                                <div style={{width: '45%'}} className='d-flex  flex-column'>
                                     <label style={{fontSize: '13px'}}>Date</label>
                                     <input
                                         className="p-3 border border-dark rounded"
@@ -372,7 +382,7 @@ const Dashboard = () => {
                                         required
                                     />
                                 </div>
-                                <div className='col-6 col-sm-6 d-flex  flex-column'>
+                                <div style={{width: '45%'}} className='d-flex  flex-column'>
                                     <label style={{fontSize: '13px'}}>Time</label>
                                     <input
                                         className='p-3 border border-dark  rounded'
