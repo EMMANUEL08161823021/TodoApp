@@ -20,9 +20,9 @@ const todoSchema = new mongoose.Schema({
     },
     frequency: {
         type: String,
-        enum: ["once", "daily", "weekly", "monthly"],
+        enum: ["daily", "weekly", "monthly"],
         required: true
-    }
+    },
 });
 
 module.exports = mongoose.model('todos', todoSchema);
