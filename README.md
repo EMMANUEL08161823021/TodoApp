@@ -69,7 +69,7 @@
 
 ### 1️⃣ Clone the Repository
 
-- git clone https://github.com/EMMANUEL08161823021/todoapp.git
+- git clone (https://github.com/EMMANUEL08161823021/TodoApp.git)
 - cd todoapp
 
 
