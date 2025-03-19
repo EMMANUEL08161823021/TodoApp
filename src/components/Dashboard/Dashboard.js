@@ -11,6 +11,9 @@ const Dashboard = () => {
     const [date, setDate] = useState("");
     const [time, setTime] = useState("");
     const [todoList, setTodoList] = useState([])
+    const [message, setMessage] = useState("");
+    const [showMessage, setShowMessage] = useState(false);
+    const [messageType, setMessageType] = useState(""); // "success" or "error"
     const [Loading, setLoading] = useState(false)
     const [frequency, setFrequency] = useState("");
     const [position, setPosition] = useState({ right: '-20%', bottom: 40 });
@@ -100,6 +103,13 @@ const Dashboard = () => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(updates), // ✅ Send only updated fields
             });
+            if (!response.ok) throw new Error("Failed to update task");
+
+            setMessage("Task updated successfully! ✅");
+            setMessageType("success");
+            setShowMessage(true); // ✅ Show message
+
+            setTimeout(() => setMessage(""), 3000);
     
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -113,40 +123,39 @@ const Dashboard = () => {
                 prev.map((todo) => (todo._id === id ? updatedData : todo))
             );
 
-            const offcanvas = document.getElementById("offcanvasTwo");
-            if (offcanvas) {
-                const bsOffcanvas = window.bootstrap.Offcanvas.getInstance(offcanvas);
-                bsOffcanvas.hide(); // Hide the offcanvas
-            }
         } catch (error) {
+            setMessage("Failed to update task ❌");
             console.error("Error updating todo:", error);
         }
     };
-    
-
     const handleCreateTask = async (e) => {
         e.preventDefault();
-    
         try {
             const response = await fetch('https://todoapp-2go5.onrender.com/todos', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ name, description, date, time, frequency}),
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, description, date, time, frequency }),
             });
     
+            if (!response.ok) throw new Error("Failed to create task");
+    
             const data = await response.json();
-            console.log(data);
-
-            const offcanvas = document.getElementById("offcanvasOne");
-            if (offcanvas) {
-                const bsOffcanvas = window.bootstrap.Offcanvas.getInstance(offcanvas);
-                bsOffcanvas.hide(); // Hide the offcanvas
-            }
-            
+            console.log("New Task Created:", data);
+    
+            setMessage("Task Created successfully! ✅");
+            setMessageType("success");
+            setShowMessage(true);
+    
+            setTimeout(() => setShowMessage(false), 3000); // Hide after 3 sec
+    
+            setTodoList((prev) => [data, ...prev]); // ✅ Add new task to top
+    
+    
         } catch (error) {
-            console.log("Error:", error.message);
+            setMessage("Failed to create task ❌");
+            setMessageType("error");
+            setShowMessage(true);
+            console.error("Error:", error.message);
         }
     };
     
@@ -237,11 +246,16 @@ const Dashboard = () => {
                             
                         ))
                     }
-                    <div className="col-12 col-sm-9 col-lg-5 mx-auto offcanvas offcanvas-bottom" style={{height: '90vh'}} id="offcanvasOne" tabIndex="-1" aria-labelledby="offcanvasOneLabel">
+                    <div className="col-12 col-sm-9 col-lg-5 mx-auto offcanvas offcanvas-bottom" style={{height: '100vh'}} id="offcanvasOne" tabIndex="-1" aria-labelledby="offcanvasOneLabel">
+                        {showMessage && (
+                            <div className={`alert ${messageType === "success" ? "alert-success" : "alert-danger"} text-center`} role="alert">
+                                {message}
+                            </div>
+                        )}
                         <div className="offcanvas-body small">
                             <h2>Create a new to-do list</h2>
                             <p>Please fill out this form to ensure a secure and customised learning journey</p>
-                            <form className='container px-0' onSubmit={handleCreateTask}>
+                            <form className='container px-0'>
                                 <div className='d-flex flex-column gap-2'>
                                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
                                         <label>Task Name</label>
@@ -312,7 +326,7 @@ const Dashboard = () => {
                     
                                     <div className='d-flex justify-content-between mt-2 align-items-center' style={{width:'100%'}}>
                                         <button style={{width:'45%'}} className='button col-6 p-3 border border-dark rounded-pill' data-bs-dismiss="offcanvas" type='submit'>Cancel</button>
-                                        <button style={{width:'45%'}} className='button col-6 p-3 border border-dark bg-dark text-white rounded-pill' type='submit'>Save</button>
+                                        <button style={{width:'45%'}} onClick={handleCreateTask} className='button col-6 p-3 border border-dark bg-dark text-white rounded-pill' type='submit'>Save</button>
                                     </div>
                             
                                 </div>
@@ -336,11 +350,12 @@ const Dashboard = () => {
             </div>
 
             {/* Canvas 2 */}
-            <div className="col-12 col-sm-9 col-lg-5 mx-auto offcanvas offcanvas-bottom" style={{height: '90vh'}} id="offcanvasTwo" tabIndex="-1" aria-labelledby="offcanvasTwoLabel">
-                {/* <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasBottomLabel">Offcanvas bottom</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div> */}
+            <div className="col-12 col-sm-9 col-lg-5 mx-auto offcanvas offcanvas-bottom" style={{height: '100vh'}} id="offcanvasTwo" tabIndex="-1" aria-labelledby="offcanvasTwoLabel">
+                {showMessage && (
+                    <div className={`alert ${messageType === "success" ? "alert-success" : "alert-danger"} text-center`} role="alert">
+                        {message}
+                    </div>
+                )}
                 <div class="offcanvas-body small">
                     <h2>Edit a new to-do list</h2>
                     <p style={{fontSize: '13px'}}>Please fill out this form to ensure a secure and customised learning journey</p>

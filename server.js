@@ -5,7 +5,11 @@ const app = express();
 const mongoose = require('mongoose');
 const cors = require("cors");
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: "*", 
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+    allowedHeaders: ["Content-Type", "application/json"]
+}));
 
 mongoose.connect(process.env.DATABASE_URL)
     .then(() => console.log("✅ Connected to MongoDB"))
