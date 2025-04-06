@@ -11,10 +11,11 @@ const app = express();
 app.use(express.json());
 
 // Enable CORS for all origins (safe version)
+
 app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
-  credentials: false
+    origin: "*",
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+    allowedHeaders: ["Content-Type"]
 }));
 
 // Connect to MongoDB
