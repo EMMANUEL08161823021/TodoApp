@@ -1,28 +1,36 @@
-require('dotenv').config()
+// Load environment variables
+require('dotenv').config();
+
 const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
 
 const app = express();
-const mongoose = require('mongoose');
-const cors = require("cors");
+
+// Middleware
 app.use(express.json());
-app.use(cors());
 
+// Enable CORS for all origins (safe version)
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+  credentials: false
+}));
+
+// Connect to MongoDB
 mongoose.connect(process.env.DATABASE_URL)
-    .then(() => console.log("✅ Connected to MongoDB"))
-    .catch((err) => console.error("❌ Connection error:", err.message));
+  .then(() => console.log("✅ Connected to MongoDB"))
+  .catch((err) => console.error("❌ Connection error:", err.message));
 
-
+// Root route for health check
 app.get('/', (req, res) => {
-    // console.log('HERE');
-    res.status(200).json({message: 'Hi'})
-    
-})
+  res.status(200).json({ message: 'Hi, backend is live!' });
+});
 
+// Import and use todo routes
+const todoRouter = require('./routes/todos');
+app.use('/todos', todoRouter);
 
-const todoRouter = require('./routes/todos')
-
-app.use('/todos', todoRouter)
-
+// Server listen
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-// app.listen(3000);
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

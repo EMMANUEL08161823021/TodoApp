@@ -161,36 +161,35 @@ const Dashboard = () => {
     
 
     useEffect(() => {
-
         const fetchData = async () => {
             try {
                 setLoading(true);
                 const response = await fetch('https://todoapp-2go5.onrender.com/todos', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
                 });
+    
                 const data = await response.json();
+    
                 const sortedTodos = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
                 setTodoList(sortedTodos);
-        
-        
-
             } catch (error) {
                 console.error("Error fetching data:", error.message);
             } finally {
                 setLoading(false);
             }
         };
-      
-        // Fetch data initially and then at regular intervals
+    
         fetchData();
-        const interval = setInterval(fetchData, 1000); 
-        
+    
+        // Refresh every 10 seconds instead of 1s
+        const interval = setInterval(fetchData, 10000);
+    
         return () => clearInterval(interval);
     }, []);
+    
 
 
 
