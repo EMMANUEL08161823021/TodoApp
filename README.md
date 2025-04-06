@@ -1,6 +1,6 @@
 # Getting Started with TaskNest
 
-**TodoNest** is a simple and intuitive task management application that allows users to create, update, delete, and track their daily tasks efficiently. The app ensures an easy-to-use interface for managing to-do lists with features like task prioritization, due dates, and reminders.
+**TaskNest** is a simple and intuitive task management application that allows users to create, update, delete, and track their daily tasks efficiently. The app ensures an easy-to-use interface for managing to-do lists with features like task prioritization, due dates, and reminders.
 
 ## Features
 
