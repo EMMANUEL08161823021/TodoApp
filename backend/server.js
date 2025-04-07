@@ -13,7 +13,7 @@ app.use(express.json());
 // Enable CORS for all origins (safe version)
 
 app.use(cors({
-  origin: 'https://tasknestapp.netlify.app',  // Your frontend URL
+  origin: 'https://todoapp-2go5.onrender.com'  // Frontend URL
 }));
 
 // Connect to MongoDB
