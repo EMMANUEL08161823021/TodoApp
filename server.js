@@ -13,7 +13,7 @@ app.use(express.json());
 // Enable CORS for all origins (safe version)
 
 app.use(cors({
-    origin: "*",
+    origin: ['https://tasknestapp.netlify.app/'],
     methods: ["GET", "POST", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type"]
 }));
