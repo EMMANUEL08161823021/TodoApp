@@ -12,9 +12,13 @@ app.use(express.json());
 
 // Enable CORS for all origins (safe version)
 
-app.use(cors({
-  origin: 'https://tasknest-6kyq.onrender.com'  // Frontend URL
-}));
+const corsOptions = {
+  origin: 'https://todoapp-2go5.onrender.com', // your frontend URL
+  methods: 'GET, POST, PUT, DELETE',           // Allow specific HTTP methods
+  allowedHeaders: 'Content-Type, Authorization', // Allow specific headers
+};
+
+app.use(cors(corsOptions));
 
 // Connect to MongoDB
 mongoose.connect(process.env.DATABASE_URL)
