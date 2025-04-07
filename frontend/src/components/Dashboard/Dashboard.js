@@ -138,6 +138,8 @@ const Dashboard = () => {
             });
     
             if (!response.ok) throw new Error("Failed to create task");
+            console.log("Submitting task with:", { name, description, date, time, frequency });
+            
     
             const data = await response.json();
             console.log("New Task Created:", data);
