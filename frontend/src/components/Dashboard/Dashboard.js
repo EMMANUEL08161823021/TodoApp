@@ -6,6 +6,10 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 
 const Dashboard = () => {
+    
+    const todoUrl = process.env.TODO_API_BASE_URL;
+
+
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [date, setDate] = useState("");
@@ -39,7 +43,7 @@ const Dashboard = () => {
         // e.preventDefault();
 
         try {
-            const response = await fetch(`https://todoapp-2go5.onrender.com/todos/${id}`, {
+            const response = await fetch(`${todoUrl}/todos/${id}`, {
                 method: 'DELETE',
 
             });
@@ -98,7 +102,7 @@ const Dashboard = () => {
             if (updatedTodo.time) updates.time = updatedTodo.time;
             if (updatedTodo.frequency) updates.frequency = updatedTodo.frequency;
     
-            const response = await fetch(`https://todoapp-2go5.onrender.com/todos/${id}`, {
+            const response = await fetch(`${todoUrl}/todos/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(updates), // ✅ Send only updated fields
@@ -131,7 +135,7 @@ const Dashboard = () => {
     const handleCreateTask = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('https://todoapp-2go5.onrender.com/todos', {
+            const response = await fetch(`${todoUrl}/todos`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, description, date, time, frequency }),
@@ -166,7 +170,7 @@ const Dashboard = () => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const response = await fetch('https://todoapp-2go5.onrender.com/todos', {
+                const response = await fetch(`${todoUrl}/todos`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
