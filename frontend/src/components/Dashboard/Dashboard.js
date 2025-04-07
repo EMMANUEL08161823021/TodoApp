@@ -6,7 +6,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 
 const Dashboard = () => {
-    
+
     const todoUrl = process.env.TODO_API_BASE_URL;
 
 
@@ -43,7 +43,7 @@ const Dashboard = () => {
         // e.preventDefault();
 
         try {
-            const response = await fetch(`${todoUrl}/todos/${id}`, {
+            const response = await fetch(`https://tasknest-6kyq.onrender.com/todos/${id}`, {
                 method: 'DELETE',
 
             });
@@ -102,7 +102,7 @@ const Dashboard = () => {
             if (updatedTodo.time) updates.time = updatedTodo.time;
             if (updatedTodo.frequency) updates.frequency = updatedTodo.frequency;
     
-            const response = await fetch(`${todoUrl}/todos/${id}`, {
+            const response = await fetch(`https://tasknest-6kyq.onrender.com/todos/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(updates), // ✅ Send only updated fields
@@ -135,7 +135,7 @@ const Dashboard = () => {
     const handleCreateTask = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`${todoUrl}/todos`, {
+            const response = await fetch(`https://tasknest-6kyq.onrender.com/todos`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, description, date, time, frequency }),
@@ -170,7 +170,7 @@ const Dashboard = () => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`${todoUrl}/todos`, {
+                const response = await fetch(`https://tasknest-6kyq.onrender.com/todos`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
