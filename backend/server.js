@@ -12,7 +12,9 @@ app.use(express.json());
 
 // Enable CORS for all origins (safe version)
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://tasknestapp.netlify.app',  // Your frontend URL
+}));
 
 // Connect to MongoDB
 mongoose.connect(process.env.DATABASE_URL)
