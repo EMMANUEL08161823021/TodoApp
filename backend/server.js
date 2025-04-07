@@ -13,9 +13,9 @@ app.use(express.json());
 // Enable CORS for all origins (safe version)
 
 const corsOptions = {
-  origin: 'https://todoapp-2go5.onrender.com', // your frontend URL
-  methods: 'GET, POST, PUT, DELETE',           // Allow specific HTTP methods
-  allowedHeaders: 'Content-Type, Authorization', // Allow specific headers
+  origin: 'https://tasknestapp.netlify.app',  // Your frontend URL
+  methods: 'GET, POST, PUT, DELETE',         // Allow specific HTTP methods
+  allowedHeaders: 'Content-Type',            // Allow only the Content-Type header
 };
 
 app.use(cors(corsOptions));
