@@ -12,13 +12,13 @@ app.use(express.json());
 
 // Enable CORS for all origins (safe version)
 
-const corsOptions = {
-  origin: '*',  // Your frontend URL
-  methods: 'GET, POST, PUT, DELETE',         // Allow specific HTTP methods
-  allowedHeaders: 'Content-Type',            // Allow only the Content-Type header
-};
+// const corsOptions = {
+//   origin: 'https://tasknestapp.netlify.app',  // Your frontend URL
+//   methods: 'GET, POST, PUT, DELETE',         // Allow specific HTTP methods
+//   allowedHeaders: 'Content-Type',            // Allow only the Content-Type header
+// };
 
-app.use(cors(corsOptions));
+app.use(cors({origin: 'https://tasknestapp.netlify.app'}));
 
 // Connect to MongoDB
 mongoose.connect(process.env.DATABASE_URL)
@@ -35,5 +35,5 @@ const todoRouter = require('./routes/todos');
 app.use('/todos', todoRouter);
 
 // Server listen
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

@@ -4,10 +4,12 @@ import { MdDelete } from "react-icons/md";
 import { IoAdd } from "react-icons/io5";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
+// https://tasknest-6kyq.onrender.com
+
 
 const Dashboard = () => {
 
-    const todoUrl = process.env.TODO_API_BASE_URL;
+    // const todoUrl = process.env.TODO_API_BASE_URL;
 
 
     const [name, setName] = useState("");
@@ -135,7 +137,7 @@ const Dashboard = () => {
     const handleCreateTask = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`https://tasknest-6kyq.onrender.com/todos`, {
+            const response = await fetch('https://tasknest-6kyq.onrender.com/todos', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, description, date, time, frequency }),
@@ -170,7 +172,7 @@ const Dashboard = () => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`https://tasknest-6kyq.onrender.com/todos`, {
+                const response = await fetch('https://tasknest-6kyq.onrender.com/todos', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
