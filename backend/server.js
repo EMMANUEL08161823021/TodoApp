@@ -12,13 +12,13 @@ app.use(express.json());
 
 // Enable CORS for all origins (safe version)
 
-// const corsOptions = {
-//   origin: 'https://tasknestapp.netlify.app',  // Your frontend URL
-//   methods: 'GET, POST, PUT, DELETE',         // Allow specific HTTP methods
-//   allowedHeaders: 'Content-Type',            // Allow only the Content-Type header
-// };
+const corsOptions = {
+  origin: 'https://tasknestapp.netlify.app',  // Your frontend URL
+  methods: 'GET, POST, PUT, DELETE',         // Allow specific HTTP methods
+  allowedHeaders: 'Content-Type',            // Allow only the Content-Type header
+};
 
-app.use(cors({origin: 'https://tasknestapp.netlify.app'}));
+app.use(cors(corsOptions));
 
 // Connect to MongoDB
 mongoose.connect(process.env.DATABASE_URL)
