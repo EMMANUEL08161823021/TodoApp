@@ -331,9 +331,9 @@ const Dashboard = () => {
                                     </div>
                                     
                     
-                                    <div className='d-flex justify-content-between mt-2 align-items-center' style={{width:'100%'}}>
-                                        <button style={{width:'45%'}} className='button col-6 p-3 border border-dark rounded-pill' data-bs-dismiss="offcanvas" type='submit'>Cancel</button>
-                                        <button style={{width:'45%'}} onClick={handleCreateTask} className='button col-6 p-3 border border-dark bg-dark text-white rounded-pill' type='submit'>Save</button>
+                                    <div className='d-flex justify-content-between mt-2 align-items-center' style={{ width: '100%' }}>
+                                        <button style={{ width: '45%' }} className='button col-6 p-3 border border-dark rounded-pill' data-bs-dismiss="offcanvas" type='submit'>Cancel</button>
+                                        <button style={{ width: '45%' }} onClick={handleCreateTask} className='button col-6 p-3 border border-dark bg-dark text-white rounded-pill' type='submit'>Save</button>
                                     </div>
                             
                                 </div>

@@ -14,7 +14,7 @@ app.use(express.json());
 
 const corsOptions = {
   origin: 'https://tasknestapp.netlify.app',  // Your frontend URL
-  methods: 'GET, POST, PUT, DELETE',         // Allow specific HTTP methods
+  methods: 'GET, POST, PATCH, DELETE',         // Allow specific HTTP methods
   allowedHeaders: 'Content-Type',            // Allow only the Content-Type header
 };
 
