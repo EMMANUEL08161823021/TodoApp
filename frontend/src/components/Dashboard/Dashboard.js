@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { MdDelete } from "react-icons/md";
 import { IoAdd } from "react-icons/io5";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 
 // https://tasknest-6kyq.onrender.com
 
