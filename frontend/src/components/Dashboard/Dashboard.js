@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { MdDelete } from "react-icons/md";
@@ -104,7 +105,7 @@ const Dashboard = () => {
             if (updatedTodo.time) updates.time = updatedTodo.time;
             if (updatedTodo.frequency) updates.frequency = updatedTodo.frequency;
     
-            const response = await fetch(`https://tasknest-6kyq.onrender.com/todos/${id}`, {
+            const response = await fetch(`/todos/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(updates), // ✅ Send only updated fields

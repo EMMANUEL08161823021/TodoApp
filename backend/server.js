@@ -1,6 +1,6 @@
 // Load environment variables
-require('dotenv').config();
-
+const dotenv = require ('dotenv');
+dotenv.config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -8,17 +8,20 @@ const cors = require('cors');
 const app = express();
 
 // Middleware
+app.use(cors());
 app.use(express.json());
 
 // Enable CORS for all origins (safe version)
 
-const corsOptions = {
-  origin: 'https://tasknestapp.netlify.app',  // Your frontend URL
-  methods: 'GET, POST, PATCH, DELETE',         // Allow specific HTTP methods
-  allowedHeaders: 'Content-Type',            // Allow only the Content-Type header
-};
+// const corsOptions = {
+//   origin: 'https://tasknestapp.netlify.app',  // Your frontend URL
+//   methods: 'GET, POST, PATCH, DELETE',         // Allow specific HTTP methods
+//   allowedHeaders: 'Content-Type',            // Allow only the Content-Type header
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+console.log(process.env.DATABASE_URL);
+
 
 // Connect to MongoDB
 mongoose.connect(process.env.DATABASE_URL)
